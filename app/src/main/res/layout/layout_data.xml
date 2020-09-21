@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:hint="@string/date"
+        android:textSize="24sp"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:hint="category"
+        android:textSize="24sp"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:hint="amount"
+        android:textSize="24sp"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:hint="note"
+        android:textSize="24sp"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="text"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="ok"
+        android:textSize="24sp"
+        android:id="@+id/ok"/>
+</LinearLayout>

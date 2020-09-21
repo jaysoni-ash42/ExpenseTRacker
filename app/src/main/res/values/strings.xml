@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ExpenseTRacker</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="expense">Expense</string>
+    <string name="toady">Toady</string>
+    <string name="todo">TODO</string>
+    <string name="show_list">Show list</string>
+    <string name="statistics">Statistics</string>
+    <string name="add">Add</string>
+    <string name="date">Date</string>
+    <string name="search">search</string>
+    <string name="_0_00">0.00</string>
+    <string name="amount_0_00">Amount: 0.00</string>
+    <string name="today">Today</string>
+    <string name="income">Income</string>
+</resources>
