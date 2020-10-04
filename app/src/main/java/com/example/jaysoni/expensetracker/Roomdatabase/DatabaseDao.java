@@ -7,7 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 
-
 import java.util.List;
 
 @Dao
@@ -53,14 +52,24 @@ public interface DatabaseDao {
 
     @Query("select Sum(Amount) from Expense where Time between :date2 and :date1")
     LiveData<Integer> getSumExpense(String date1, String date2);
+
     @Query("select Sum(Amount) from Expense")
     LiveData<Integer> getSumExpense();
+
     @Query("select Sum(Amount) from Income")
     LiveData<Integer> getSumIncome();
+
     @Query("select sum(Amount) as Amt,Category as Name from Expense where Time between :date2 and :date1 group by category order by Sum(Amount)")
-    LiveData<List<PiechartData>> getExpense(String date1,String date2);
+    LiveData<List<PiechartData>> getExpense(String date1, String date2);
+
     @Query("select sum(Amount) as Amt,Category as Name from Income where Time between :date2 and :date1 group by category order by Sum(Amount)")
-    LiveData<List<PiechartData>> getIncome(String date1,String date2);
+    LiveData<List<PiechartData>> getIncome(String date1, String date2);
+
+    @Query("select sum(Amount) as Amt,Category as Name from Income where Time = :date1 group by category order by Sum(Amount)")
+    LiveData<List<PiechartData>> getIncome(String date1);
+
+    @Query("select sum(Amount) as Amt,Category as Name from Expense where Time = :date1 group by category order by Sum(Amount)")
+    LiveData<List<PiechartData>> getExpense(String date1);
 
 
 }

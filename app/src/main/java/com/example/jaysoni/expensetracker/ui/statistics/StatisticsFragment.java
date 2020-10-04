@@ -66,11 +66,19 @@ public class StatisticsFragment extends Fragment {
         textView = root.findViewById(R.id.date);
         expenseEntry = new ArrayList<>();
         incomeEntry = new ArrayList<>();
+        date1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        todayData();
         return root;
     }
 
+    public void todayData() {
+        expenseData(date1);
+        incomeData(date1);
+    }
+
     private void insertdata() {
-        if (expenseEntry.isEmpty() || incomeEntry.isEmpty()) {
+        if (expenseEntry.isEmpty() && incomeEntry.isEmpty()) {
+            return;
         } else {
             expensechart.setExtraOffsets(0.f, 5.f, 0.f, 5.f);
             incomechart.setExtraOffsets(0.f, 5.f, 0.f, 5.f);
@@ -138,7 +146,6 @@ public class StatisticsFragment extends Fragment {
                         if (dayOfMonth < 10) {
                             dayOfmonth = "0" + dayOfMonth;
                         }
-                        date1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                         date2 = year + "-" + Month + "-" + dayOfmonth;
                         textView.setText(date1 + " To " + date2);
                         expenseData(date1, date2);
@@ -158,9 +165,9 @@ public class StatisticsFragment extends Fragment {
             public void onChanged(List<PiechartData> piechartData) {
                 Log.d("value", "" + piechartData);
                 expenseEntry.clear();
-                    for (PiechartData data : piechartData) {
-                        expenseEntry.add(new PieEntry(Float.parseFloat(data.getAmt()), data.getName()));
-                    }
+                for (PiechartData data : piechartData) {
+                    expenseEntry.add(new PieEntry(Float.parseFloat(data.getAmt()), data.getName()));
+                }
                 insertdata();
             }
         });
@@ -169,6 +176,36 @@ public class StatisticsFragment extends Fragment {
 
     public void incomeData(String date1, String date2) {
         statisticsViewModel.getIncome(date1, date2).observe(getViewLifecycleOwner(), new Observer<List<PiechartData>>() {
+            @Override
+            public void onChanged(List<PiechartData> piechartData) {
+                Log.d("value1", "" + piechartData);
+                incomeEntry.clear();
+                for (PiechartData data : piechartData) {
+                    incomeEntry.add(new PieEntry(Float.parseFloat(data.getAmt()), data.getName()));
+                }
+                insertdata();
+            }
+        });
+
+    }
+
+    public void expenseData(String date1) {
+        statisticsViewModel.getExpense(date1).observe(getViewLifecycleOwner(), new Observer<List<PiechartData>>() {
+            @Override
+            public void onChanged(List<PiechartData> piechartData) {
+                Log.d("value1", "" + piechartData);
+                expenseEntry.clear();
+                for (PiechartData data : piechartData) {
+                    expenseEntry.add(new PieEntry(Float.parseFloat(data.getAmt()), data.getName()));
+                }
+                insertdata();
+            }
+        });
+
+    }
+
+    public void incomeData(String date1) {
+        statisticsViewModel.getIncome(date1).observe(getViewLifecycleOwner(), new Observer<List<PiechartData>>() {
             @Override
             public void onChanged(List<PiechartData> piechartData) {
                 Log.d("value1", "" + piechartData);

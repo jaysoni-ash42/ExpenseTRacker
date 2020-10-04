@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true">
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <EditText
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_border"
         android:elevation="10dp"
         android:padding="10dp"
         android:hint="@string/date"
         android:textSize="24sp"
         android:textColorHint="@color/colorPrimaryDark"
-        android:inputType="text"/>
+        android:layout_margin="5dp"/>
 
-    <EditText
-        android:id="@+id/category"
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:hint="category"
-        android:textSize="24sp"
-        android:textColorHint="@color/colorPrimaryDark"
-        android:inputType="text"/>
+        android:layout_height="50dp"
+        android:elevation="50dp"
+        android:id="@+id/spinner"
+        android:dropDownSelector="@color/colorPrimaryDark"
+        android:layout_margin="5dp"
+        />
 
     <EditText
         android:id="@+id/amount"
@@ -33,10 +36,12 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="10dp"
-        android:hint="amount"
+        android:background="@drawable/layout_border"
+        android:hint="@string/amount"
         android:textSize="24sp"
         android:textColorHint="@color/colorPrimaryDark"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/note"
@@ -44,14 +49,20 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="10dp"
-        android:hint="note"
+        android:background="@drawable/layout_border"
+        android:hint="@string/note"
         android:textSize="24sp"
         android:textColorHint="@color/colorPrimaryDark"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:layout_margin="5dp"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="ok"
+        android:text="@string/ok"
         android:textSize="24sp"
-        android:id="@+id/ok"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
+        android:id="@+id/ok"
+        android:layout_margin="5dp"/>
 </LinearLayout>
+</ScrollView>

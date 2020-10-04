@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,16 +24,23 @@ List<IncomeModel> incomeModelList=new ArrayList<>();
     @NonNull
     @Override
     public Income_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_example,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_income,parent,false);
         return new Income_ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Income_ViewHolder holder, int position) {
     holder.date.setText(incomeModelList.get(position).getTime());
-    holder.category.setText(incomeModelList.get(position).getCategory());
-    holder.amount.setText(incomeModelList.get(position).getAmount());
-    holder.amount.setText(incomeModelList.get(position).getAmount());
+        holder.category.setText(incomeModelList.get(position).getCategory());
+        holder.amount.setText(incomeModelList.get(position).getAmount());
+    if(incomeModelList.get(position).getNote().equals(""))
+    {
+        holder.note.setText("Null");
+    }
+    else
+    {
+        holder.note.setText(incomeModelList.get(position).getNote());
+    }
     }
 
     @Override
@@ -95,7 +103,7 @@ List<IncomeModel> incomeModelList=new ArrayList<>();
             date=itemView.findViewById(R.id.date);
             category=itemView.findViewById(R.id.category);
             amount=itemView.findViewById(R.id.amount);
-            note=itemView.findViewById(R.id.note);
+            note=itemView.findViewById(R.id.Note);
         }
     }
 }

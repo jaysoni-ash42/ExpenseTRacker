@@ -1,48 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:elevation="50dp"
     android:orientation="vertical"
-    android:elevation="10dp"
-    android:padding="5dp"
-    android:layout_marginTop="5dp">
+    android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_border"
         android:elevation="10dp"
+        android:outlineProvider="none"
         android:padding="10dp"
-        android:text="Hello"
-        android:textSize="14sp"
-        />
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_border"
         android:elevation="10dp"
+        android:outlineProvider="none"
         android:padding="10dp"
-        android:text="Hello"
-        android:textSize="14sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:drawableStartCompat="@drawable/ic_baseline_category_24" />
 
     <TextView
         android:id="@+id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_border"
         android:elevation="10dp"
+        android:outlineProvider="none"
         android:padding="10dp"
-        android:text="Hello"
-        android:textSize="14sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:drawableStartCompat="@drawable/ic_baseline_attach_money_24" />
 
     <TextView
         android:id="@+id/Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_border"
         android:elevation="10dp"
+        android:outlineProvider="none"
         android:padding="10dp"
-        android:text="Hello"
-        android:textSize="14sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:drawableStartCompat="@drawable/ic_baseline_notes_24" />
 
 
 </LinearLayout>

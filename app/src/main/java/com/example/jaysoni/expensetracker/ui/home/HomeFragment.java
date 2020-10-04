@@ -23,6 +23,8 @@ import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Expense_Adapter;
+import com.example.jaysoni.expensetracker.adapter.Home_ExpenseAdapter;
+import com.example.jaysoni.expensetracker.adapter.Home_IncomeAdapter;
 import com.example.jaysoni.expensetracker.adapter.Income_Adapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -47,8 +49,8 @@ public class HomeFragment extends Fragment {
     LinearLayout linearlayoutincome, linearlayoutexpense;
     RecyclerView expense_Recyclerview, income_Recyclerview;
     TextView expenseamount, incomeamount;
-    Income_Adapter income_adapter;
-    Expense_Adapter expense_adapter;
+    Home_IncomeAdapter income_adapter;
+    Home_ExpenseAdapter expense_adapter;
     List<IncomeModel> incomeModelList;
     List<ExpenseModel> expenseModelList;
     LineChart lineChart;
@@ -77,8 +79,8 @@ public class HomeFragment extends Fragment {
         income_Recyclerview.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
         income_Recyclerview.setItemAnimator(new DefaultItemAnimator());
         income_Recyclerview.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
-        income_adapter = new Income_Adapter();
-        expense_adapter = new Expense_Adapter();
+        income_adapter = new Home_IncomeAdapter();
+        expense_adapter = new Home_ExpenseAdapter();
         insertData();
         return root;
     }
@@ -166,9 +168,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == null) {
-                    expenseamount.setText("Amount: " + 0.00);
+                    expenseamount.setText("Amount: " +"$"+ 0.00);
                 } else {
-                    expenseamount.setText("Amount: " + String.valueOf(integer));
+                    expenseamount.setText("Amount: " +"$"+String.valueOf(integer));
                 }
             }
         });
@@ -195,9 +197,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == null) {
-                    incomeamount.setText("Amount: " + 0.00);
+                    incomeamount.setText("Amount: " +"$"+0.00);
                 } else {
-                    incomeamount.setText("Amount: " + String.valueOf(integer));
+                    incomeamount.setText("Amount: "+"$"+String.valueOf(integer));
                 }
             }
         });

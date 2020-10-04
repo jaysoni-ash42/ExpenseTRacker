@@ -38,5 +38,13 @@ public class StatisticsViewModel extends AndroidViewModel{
     {
         return repository.getIncome(date1,date2);
     }
+    public LiveData<List<PiechartData>> getIncome(String date1)
+    {
+        return repository.getIncome(date1);
+    }
+    public LiveData<List<PiechartData>> getExpense(String date1)
+    {
+        return repository.getExpense(date1);
+    }
 
 }

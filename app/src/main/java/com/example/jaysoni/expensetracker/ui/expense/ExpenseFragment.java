@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
+import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Expense_Adapter;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -61,7 +62,7 @@ public class ExpenseFragment extends Fragment {
     SearchView searchView;
     ItemTouchHelper itemTouchHelper;
     List<ExpenseModel> expensemodels;
-
+    String category;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class ExpenseFragment extends Fragment {
         expenseViewModel = ViewModelProviders.of(this).get(ExpenseViewModel.class);
         View root = inflater.inflate(R.layout.fragment_expense, container, false);
         textView = root.findViewById(R.id.date);
-        amount = root.findViewById(R.id.expense__amount);
+        amount = root.findViewById(R.id.expense_amount);
         recyclerView = root.findViewById(R.id.expense_recyclerview);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
@@ -365,11 +366,17 @@ public class ExpenseFragment extends Fragment {
     private void insertitem() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(R.layout.layout_data);
-        final EditText date, category, amount, note;
+        final EditText date, amount, note;
+        Spinner spinnerbottom;
         Button ok;
         ok = bottomSheetDialog.findViewById(R.id.ok);
         date = bottomSheetDialog.findViewById(R.id.date);
-        category = bottomSheetDialog.findViewById(R.id.category);
+        spinnerbottom=bottomSheetDialog.findViewById(R.id.spinner);
+        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinnerbottom.setAdapter(arrayAdapter);
+        spinnerbottom.setSelection(1);
         amount = bottomSheetDialog.findViewById(R.id.amount);
         note = bottomSheetDialog.findViewById(R.id.note);
         bottomSheetDialog.setCancelable(true);
@@ -377,29 +384,43 @@ public class ExpenseFragment extends Fragment {
         assert date != null;
         date.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         assert ok != null;
+        spinnerbottom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category =adapterView.getAdapter().getItem(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                assert category != null;
-                if (TextUtils.isEmpty(date.getText().toString()) || TextUtils.isEmpty(category.getText().toString()) || TextUtils.isEmpty(amount.getText().toString()) || TextUtils.isEmpty(note.getText().toString())) {
-                    date.setError("error");
-                    category.setError("error");
-                    assert amount != null;
-                    amount.setError("error");
-                    assert note != null;
-                    note.setError("error");
-
-
-                } else {
-
-                    ExpenseModel expenseModel = new ExpenseModel(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), category.getText().toString(), amount.getText().toString(), note.getText().toString());
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(date.getText().toString()))
+                {
+                    date.setError("Invalid Date");
+                }
+                else if(TextUtils.isEmpty(amount.getText().toString()))
+                {
+                    amount.setError("No amount submitted");
+                }
+                else if (category.equals(""))
+                {
+                    toast_text_view.setText("invalid Category");
+                    toast.show();
+                }
+                else
+                {
+                    ExpenseModel expenseModel=new ExpenseModel(date.getText().toString(),category,amount.getText().toString(),note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
                     expenseViewModel.insertExpense(expenseModel);
                     bottomSheetDialog.dismiss();
                     toast_text_view.setText("Item Added");
                     toast.show();
-
                 }
+
             }
         });
 

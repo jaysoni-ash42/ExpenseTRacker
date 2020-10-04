@@ -14,6 +14,7 @@ import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseDatabase;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -38,7 +39,14 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
         holder.date.setText(expenseModelList.get(position).getTime());
         holder.category.setText(expenseModelList.get(position).getCategory());
         holder.amount.setText(expenseModelList.get(position).getAmount());
-        holder.note.setText(expenseModelList.get(position).getNote());
+        if(expenseModelList.get(position).getNote().equals(""))
+        {
+            holder.note.setText("Null");
+        }
+        else
+        {
+            holder.note.setText(expenseModelList.get(position).getNote());
+        }
     }
 
     @Override
