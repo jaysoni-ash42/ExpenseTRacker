@@ -42,22 +42,22 @@ public interface DatabaseDao {
     LiveData<List<IncomeModel>> getAllIncome(String date1, String date2);
 
     @Query("select Sum(Amount) from Income where Time= :date")
-    LiveData<Integer> getSumIncome(String date);
+    LiveData<String> getSumIncome(String date);
 
     @Query("select Sum(Amount) from Expense where Time= :date")
-    LiveData<Integer> getSumExpense(String date);
+    LiveData<String> getSumExpense(String date);
 
     @Query("select Sum(Amount) from Income where Time between :date2 and :date1")
-    LiveData<Integer> getSumIncome(String date1, String date2);
+    LiveData<String> getSumIncome(String date1, String date2);
 
     @Query("select Sum(Amount) from Expense where Time between :date2 and :date1")
-    LiveData<Integer> getSumExpense(String date1, String date2);
+    LiveData<String> getSumExpense(String date1, String date2);
 
     @Query("select Sum(Amount) from Expense")
-    LiveData<Integer> getSumExpense();
+    LiveData<String> getSumExpense();
 
     @Query("select Sum(Amount) from Income")
-    LiveData<Integer> getSumIncome();
+    LiveData<String> getSumIncome();
 
     @Query("select sum(Amount) as Amt,Category as Name from Expense where Time between :date2 and :date1 group by category order by Sum(Amount)")
     LiveData<List<PiechartData>> getExpense(String date1, String date2);

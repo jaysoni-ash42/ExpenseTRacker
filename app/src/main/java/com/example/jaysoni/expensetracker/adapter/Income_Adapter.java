@@ -89,8 +89,14 @@ List<IncomeModel> incomeModelList=new ArrayList<>();
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             incomeModelList.clear();
-            incomeModelList.addAll((Collection<? extends IncomeModel>) results.values);
-            notifyDataSetChanged();
+            if(results.values==null)
+            {
+                return;
+            }
+            else {
+                incomeModelList.addAll((Collection<? extends IncomeModel>) results.values);
+                notifyDataSetChanged();
+            }
         }
     };
 

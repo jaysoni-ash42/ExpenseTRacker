@@ -3,5 +3,4 @@
     <color name="colorPrimary">#FFA500</color>
     <color name="colorPrimaryDark">#1b1b1b</color>
     <color name="colorAccent">#FFD700</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#000000</color>
 </resources>

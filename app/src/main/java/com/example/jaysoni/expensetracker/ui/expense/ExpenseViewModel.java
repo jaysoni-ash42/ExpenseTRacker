@@ -39,23 +39,23 @@ public class ExpenseViewModel extends AndroidViewModel {
         repository.deleteExpense(expenseModel);
     }
 
-    public LiveData<Integer> getSumExpense(String date) {
+    public LiveData<String> getSumExpense(String date) {
         return repository.getSumExpense(date);
     }
 
 
-    public LiveData<Integer> getSumExpense(String date1, String date2) {
+    public LiveData<String> getSumExpense(String date1, String date2) {
         return repository.getSumExpense(date1, date2);
     }
     public LiveData<List<ExpenseModel>> getAllExpense()
     {
         return repository.getAllExpense();
     }
-    public LiveData<Integer> getAllSumExpense()
+    public LiveData<String> getAllSumExpense()
     {
         return repository.getSumExpense();
     }
-    public LiveData<Integer> getAllSumIncome()
+    public LiveData<String> getAllSumIncome()
     {
         return repository.getSumIncome();
     }

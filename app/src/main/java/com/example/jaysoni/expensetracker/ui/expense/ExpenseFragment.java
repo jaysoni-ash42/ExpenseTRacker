@@ -78,8 +78,6 @@ public class ExpenseFragment extends Fragment {
         textView = root.findViewById(R.id.date);
         amount = root.findViewById(R.id.expense_amount);
         recyclerView = root.findViewById(R.id.expense_recyclerview);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         linearLayout = root.findViewById(R.id.linearlayout);
         expense_adapter = new Expense_Adapter();
         toast = new Toast(getContext());
@@ -211,13 +209,13 @@ public class ExpenseFragment extends Fragment {
                             }
                         }
                     });
-                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
-                            if (integer == null) {
+                        public void onChanged(String s) {
+                            if (s == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
-                                amount.setText("Amount: " + String.valueOf(integer));
+                                amount.setText("Amount: " + String.valueOf(s));
                             }
                         }
                     });
@@ -243,9 +241,9 @@ public class ExpenseFragment extends Fragment {
                             }
                         }
                     });
-                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -274,9 +272,9 @@ public class ExpenseFragment extends Fragment {
                             }
                         }
                     });
-                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -307,9 +305,9 @@ public class ExpenseFragment extends Fragment {
                             }
                         }
                     });
-                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    expenseViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -336,13 +334,13 @@ public class ExpenseFragment extends Fragment {
                             }
                         }
                     });
-                    expenseViewModel.getAllSumExpense().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    expenseViewModel.getAllSumExpense().observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
-                                amount.setText("Amount: " + String.valueOf(integer));
+                                amount.setText("Amount: " + integer);
                             }
                         }
                     });
@@ -376,7 +374,7 @@ public class ExpenseFragment extends Fragment {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerbottom.setAdapter(arrayAdapter);
-        spinnerbottom.setSelection(1);
+        spinnerbottom.setSelection(0);
         amount = bottomSheetDialog.findViewById(R.id.amount);
         note = bottomSheetDialog.findViewById(R.id.note);
         bottomSheetDialog.setCancelable(true);

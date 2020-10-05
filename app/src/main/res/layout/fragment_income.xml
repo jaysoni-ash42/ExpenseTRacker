@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_marginTop="2dp"
-            android:background="@drawable/layout_toast"
+            android:background="@drawable/layout_searchdesign"
             android:elevation="10dp"
             app:iconifiedByDefault="false"
             app:layout_constraintBottom_toTopOf="@id/date"
@@ -81,10 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:background="#E0DFDB"
                 android:fadeScrollbars="true"
                 android:scrollbars="vertical"
-                android:padding="10dp"/>
+                android:padding="5dp"/>
 
             <LinearLayout
                 android:id="@+id/linearlayout"

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="100dp"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="5dp">
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
     android:elevation="50dp"
     android:orientation="vertical"
     android:layout_margin="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/date"
@@ -19,14 +30,20 @@
         android:padding="10dp"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_baseline_calendar_today_24" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/category"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/layout_border"
         android:elevation="10dp"
         android:outlineProvider="none"
@@ -35,12 +52,17 @@
         android:textStyle="bold"
         android:textAlignment="center"
         app:drawableStartCompat="@drawable/ic_baseline_category_24" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Amount"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/amount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/layout_border"
         android:elevation="10dp"
         android:outlineProvider="none"
@@ -49,12 +71,17 @@
         android:textStyle="bold"
         android:textAlignment="center"
         app:drawableStartCompat="@drawable/ic_baseline_attach_money_24" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Note"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/Note"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/layout_border"
         android:elevation="10dp"
         android:outlineProvider="none"
@@ -66,3 +93,4 @@
 
 
 </LinearLayout>
+</androidx.cardview.widget.CardView>

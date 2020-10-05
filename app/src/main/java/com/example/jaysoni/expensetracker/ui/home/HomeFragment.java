@@ -1,6 +1,7 @@
 package com.example.jaysoni.expensetracker.ui.home;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,9 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,12 +47,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     LinearLayout linearlayoutincome, linearlayoutexpense;
     RecyclerView expense_Recyclerview, income_Recyclerview;
-    TextView expenseamount, incomeamount;
+    TextView expenseamount, incomeamount, profile_name;
+    CircleImageView circleImageView;
     Home_IncomeAdapter income_adapter;
     Home_ExpenseAdapter expense_adapter;
     List<IncomeModel> incomeModelList;
@@ -58,12 +65,15 @@ public class HomeFragment extends Fragment {
     LineDataSet incomedataset, expensedataset;
     List<Entry> lineEntries, lineEntries2;
     List<ILineDataSet> dataSets;
+    FirebaseAuth mauth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        profile_name = root.findViewById(R.id.profile_name);
+        circleImageView = root.findViewById(R.id.profile_image);
         expenseModelList = new ArrayList<>();
         incomeModelList = new ArrayList<>();
         lineChart = root.findViewById(R.id.line_chart);
@@ -73,14 +83,13 @@ public class HomeFragment extends Fragment {
         incomeamount = root.findViewById(R.id.Income_Amount);
         expense_Recyclerview = root.findViewById(R.id.Expense_recyclerview);
         income_Recyclerview = root.findViewById(R.id.Income_recyclerview);
-        expense_Recyclerview.setItemAnimator(new DefaultItemAnimator());
-        expense_Recyclerview.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
-        income_Recyclerview.setItemAnimator(new DefaultItemAnimator());
-        income_Recyclerview.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
-        income_Recyclerview.setItemAnimator(new DefaultItemAnimator());
-        income_Recyclerview.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
         income_adapter = new Home_IncomeAdapter();
         expense_adapter = new Home_ExpenseAdapter();
+        mauth = FirebaseAuth.getInstance();
+        FirebaseUser user = mauth.getCurrentUser();
+        profile_name.setText(user.getDisplayName());
+        Picasso.get().load(user.getPhotoUrl()).into(circleImageView);
+        Log.d("debug", "" + user.getPhotoUrl());
         insertData();
         return root;
     }
@@ -139,7 +148,7 @@ public class HomeFragment extends Fragment {
         lineChart.getAxisLeft().setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                return "Rs."+String.valueOf(value);
+                return "Rs." + String.valueOf(value);
             }
         });
         lineChart.invalidate();
@@ -164,13 +173,13 @@ public class HomeFragment extends Fragment {
                 getGraph();
             }
         });
-        homeViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        homeViewModel.getSumExpense(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(Integer integer) {
+            public void onChanged(String integer) {
                 if (integer == null) {
-                    expenseamount.setText("Amount: " +"$"+ 0.00);
+                    expenseamount.setText("Amount: " + "$" + 0.00);
                 } else {
-                    expenseamount.setText("Amount: " +"$"+String.valueOf(integer));
+                    expenseamount.setText("Amount: " + "$" + String.valueOf(integer));
                 }
             }
         });
@@ -193,13 +202,13 @@ public class HomeFragment extends Fragment {
                 getGraph();
             }
         });
-        homeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        homeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(Integer integer) {
+            public void onChanged(String integer) {
                 if (integer == null) {
-                    incomeamount.setText("Amount: " +"$"+0.00);
+                    incomeamount.setText("Amount: " + "$" + 0.00);
                 } else {
-                    incomeamount.setText("Amount: "+"$"+String.valueOf(integer));
+                    incomeamount.setText("Amount: " + "$" + String.valueOf(integer));
                 }
             }
         });

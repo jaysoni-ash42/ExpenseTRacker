@@ -38,12 +38,12 @@ public class IncomeViewModel extends AndroidViewModel {
     public void deleteIncome(IncomeModel incomeModel) {
         repository.deleteIncome(incomeModel);
     }
-    public LiveData<Integer> getSumIncome(String date)
+    public LiveData<String> getSumIncome(String date)
     {
         return repository.getSumIncome(date);
     }
 
-    public LiveData<Integer> getSumIncome(String date1,String date2)
+    public LiveData<String> getSumIncome(String date1,String date2)
     {
         return repository.getSumIncome(date1,date2);
     }
@@ -51,7 +51,7 @@ public class IncomeViewModel extends AndroidViewModel {
     {
         return repository.getAllIncome();
     }
-    public LiveData<Integer> getSumAllIncome()
+    public LiveData<String> getSumAllIncome()
     {
         return repository.getSumIncome();
     }

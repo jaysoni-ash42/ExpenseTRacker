@@ -5,7 +5,7 @@
     android:fillViewport="true">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -19,6 +19,7 @@
         android:hint="@string/date"
         android:textSize="24sp"
         android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="text"
         android:layout_margin="5dp"/>
 
     <Spinner
@@ -40,7 +41,7 @@
         android:hint="@string/amount"
         android:textSize="24sp"
         android:textColorHint="@color/colorPrimaryDark"
-        android:inputType="number"
+        android:inputType="text"
         android:layout_margin="5dp"/>
 
     <EditText

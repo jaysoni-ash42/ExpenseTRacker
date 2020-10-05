@@ -24,8 +24,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,8 +66,6 @@ public class IncomeFragment extends Fragment {
         textView = root.findViewById(R.id.date);
         amount = root.findViewById(R.id.income_amount);
         recyclerView = root.findViewById(R.id.Income_recyclerview);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         linearLayout = root.findViewById(R.id.linearlayout);
         income_adapter = new Income_Adapter();
@@ -185,9 +181,9 @@ public class IncomeFragment extends Fragment {
                 String data = parent.getAdapter().getItem(position).toString();
                 if (data.equals("Today")) {
                     textView.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -216,9 +212,9 @@ public class IncomeFragment extends Fragment {
                     Calendar calendar = Calendar.getInstance();
                     calendar.add(Calendar.DATE, -1);
                     textView.setText(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
-                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -247,9 +243,9 @@ public class IncomeFragment extends Fragment {
                     Calendar calendar = Calendar.getInstance();
                     calendar.add(Calendar.DATE, -30);
                     textView.setText(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
-                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -279,9 +275,9 @@ public class IncomeFragment extends Fragment {
                     Calendar calendar = Calendar.getInstance();
                     calendar.add(Calendar.MONTH, -6);
                     textView.setText(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
-                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    incomeViewModel.getSumIncome(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())).observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -323,9 +319,9 @@ public class IncomeFragment extends Fragment {
                             }
                         }
                     });
-                    incomeViewModel.getSumAllIncome().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    incomeViewModel.getSumAllIncome().observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(Integer integer) {
+                        public void onChanged(String integer) {
                             if (integer == null) {
                                 amount.setText("Amount: " + 0.00);
                             } else {
@@ -363,7 +359,7 @@ public class IncomeFragment extends Fragment {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerbottom.setAdapter(arrayAdapter);
-        spinnerbottom.setSelection(1);
+        spinnerbottom.setSelection(0);
         amount = bottomSheetDialog.findViewById(R.id.amount);
         note = bottomSheetDialog.findViewById(R.id.note);
         bottomSheetDialog.setCancelable(true);

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expense_ViewHolder> implements Filterable {
 
-    List<ExpenseModel> expenseModelList=new ArrayList<>();
+    List<ExpenseModel> expenseModelList = new ArrayList<>();
     List<ExpenseModel> data;
 
 
@@ -39,12 +39,9 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
         holder.date.setText(expenseModelList.get(position).getTime());
         holder.category.setText(expenseModelList.get(position).getCategory());
         holder.amount.setText(expenseModelList.get(position).getAmount());
-        if(expenseModelList.get(position).getNote().equals(""))
-        {
+        if (expenseModelList.get(position).getNote().equals("")) {
             holder.note.setText("Null");
-        }
-        else
-        {
+        } else {
             holder.note.setText(expenseModelList.get(position).getNote());
         }
     }
@@ -55,13 +52,13 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
     }
 
     public void getList(List<ExpenseModel> expenseModels) {
-           expenseModelList = expenseModels;
-           data = new ArrayList<>(expenseModelList);
+        expenseModelList = expenseModels;
+        data = new ArrayList<>(expenseModelList);
     }
 
     public void clearList() {
-        if (expenseModelList.size()==0) {
-
+        if (expenseModelList.size() == 0) {
+            return;
         } else {
             expenseModelList.clear();
             data.clear();
@@ -96,8 +93,16 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             expenseModelList.clear();
-            expenseModelList.addAll((Collection<? extends ExpenseModel>) results.values);
-            notifyDataSetChanged();
+            if(results.values==null)
+            {
+                return;
+            }
+            else {
+                expenseModelList.addAll((Collection<? extends ExpenseModel>) results.values);
+                notifyDataSetChanged();
+            }
+
+
         }
     };
 

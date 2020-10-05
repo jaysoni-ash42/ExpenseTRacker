@@ -62,27 +62,27 @@ public class Repository {
         return databaseDao.getAllIncome(date1, date2);
     }
 
-    public LiveData<Integer> getSumIncome(String date) {
+    public LiveData<String> getSumIncome(String date) {
         return databaseDao.getSumIncome(date);
     }
 
-    public LiveData<Integer> getSumExpense(String date) {
+    public LiveData<String> getSumExpense(String date) {
         return databaseDao.getSumExpense(date);
     }
 
-    public LiveData<Integer> getSumIncome(String date1, String date2) {
+    public LiveData<String> getSumIncome(String date1, String date2) {
         return databaseDao.getSumIncome(date1, date2);
     }
 
-    public LiveData<Integer> getSumExpense(String date1, String date2) {
+    public LiveData<String> getSumExpense(String date1, String date2) {
         return databaseDao.getSumExpense(date1, date2);
     }
 
-    public LiveData<Integer> getSumIncome() {
+    public LiveData<String> getSumIncome() {
         return databaseDao.getSumIncome();
     }
 
-    public LiveData<Integer> getSumExpense() {
+    public LiveData<String> getSumExpense() {
         return databaseDao.getSumExpense();
     }
 

@@ -82,8 +82,8 @@ public class StatisticsFragment extends Fragment {
         } else {
             expensechart.setExtraOffsets(0.f, 5.f, 0.f, 5.f);
             incomechart.setExtraOffsets(0.f, 5.f, 0.f, 5.f);
-            expensechart.getLegend().setEnabled(false);
-            incomechart.getLegend().setEnabled(false);
+            //expensechart.getLegend().setEnabled(false);
+            //incomechart.getLegend().setEnabled(false);
             expensechart.setUsePercentValues(true);
             expensechart.getDescription().setEnabled(false);
             expensechart.setDrawHoleEnabled(true);
@@ -99,7 +99,7 @@ public class StatisticsFragment extends Fragment {
             expensedataset.setValueLinePart1Length(0.6f);
             expensedataset.setValueLinePart2Length(0.6f);
             expensedataset.setValueTextColor(Color.BLACK);
-            expensedataset.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+            //expensedataset.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
             expensechart.animateY(1000, Easing.EaseInOutCubic);
             expensechart.setEntryLabelColor(Color.BLACK);
             incomechart.setEntryLabelColor(Color.BLACK);

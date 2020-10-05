@@ -32,11 +32,11 @@ public class HomeViewModel extends AndroidViewModel {
     public LiveData<List<ExpenseModel>> getAllExpense(String date) {
         return repository.getAllExpense(date);
     }
-    public LiveData<Integer> getSumIncome(String date)
+    public LiveData<String> getSumIncome(String date)
     {
         return repository.getSumIncome(date);
     }
-    public LiveData<Integer> getSumExpense(String date)
+    public LiveData<String> getSumExpense(String date)
     {
         return repository.getSumExpense(date);
     }

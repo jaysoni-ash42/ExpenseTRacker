@@ -18,4 +18,9 @@
     <string name="amount">amount</string>
     <string name="note">note</string>
     <string name="ok">ok</string>
+    <string name="category">Category</string>
+    <string name="Amount">Amount</string>
+    <string name="Note">Note</string>
+    <string name="budget">Budget</string>
+    <string name="Budget">Budget</string>
 </resources>
