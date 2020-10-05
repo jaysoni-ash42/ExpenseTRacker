@@ -33,13 +33,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,15 +44,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     LinearLayout linearlayoutincome, linearlayoutexpense;
     RecyclerView expense_Recyclerview, income_Recyclerview;
-    TextView expenseamount, incomeamount, profile_name;
-    CircleImageView circleImageView;
+    TextView expenseamount, incomeamount;
     Home_IncomeAdapter income_adapter;
     Home_ExpenseAdapter expense_adapter;
     List<IncomeModel> incomeModelList;
@@ -65,15 +60,12 @@ public class HomeFragment extends Fragment {
     LineDataSet incomedataset, expensedataset;
     List<Entry> lineEntries, lineEntries2;
     List<ILineDataSet> dataSets;
-    FirebaseAuth mauth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        profile_name = root.findViewById(R.id.profile_name);
-        circleImageView = root.findViewById(R.id.profile_image);
         expenseModelList = new ArrayList<>();
         incomeModelList = new ArrayList<>();
         lineChart = root.findViewById(R.id.line_chart);
@@ -85,11 +77,6 @@ public class HomeFragment extends Fragment {
         income_Recyclerview = root.findViewById(R.id.Income_recyclerview);
         income_adapter = new Home_IncomeAdapter();
         expense_adapter = new Home_ExpenseAdapter();
-        mauth = FirebaseAuth.getInstance();
-        FirebaseUser user = mauth.getCurrentUser();
-        profile_name.setText(user.getDisplayName());
-        Picasso.get().load(user.getPhotoUrl()).into(circleImageView);
-        Log.d("debug", "" + user.getPhotoUrl());
         insertData();
         return root;
     }
