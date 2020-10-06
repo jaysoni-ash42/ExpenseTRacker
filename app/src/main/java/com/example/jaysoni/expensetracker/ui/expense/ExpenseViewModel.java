@@ -59,6 +59,10 @@ public class ExpenseViewModel extends AndroidViewModel {
     {
         return repository.getSumIncome();
     }
+    public void updateExpense(ExpenseModel expenseModel)
+    {
+        repository.updateExpense(expenseModel);
+    }
 
 
 

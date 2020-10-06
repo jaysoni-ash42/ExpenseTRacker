@@ -1,5 +1,6 @@
 package com.example.jaysoni.expensetracker.ui.expense;
 
+import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaRouter;
@@ -35,6 +36,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
+import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Expense_Adapter;
@@ -79,7 +81,12 @@ public class ExpenseFragment extends Fragment {
         amount = root.findViewById(R.id.expense_amount);
         recyclerView = root.findViewById(R.id.expense_recyclerview);
         linearLayout = root.findViewById(R.id.linearlayout);
-        expense_adapter = new Expense_Adapter();
+        expense_adapter = new Expense_Adapter(new RecyclerInterface() {
+            @Override
+            public void Longclick(int position) {
+                updatedata(expensemodels.get(position));
+            }
+        });
         toast = new Toast(getContext());
         View v = LayoutInflater.from(getContext()).inflate(R.layout.layout_toast, container, false);
         toast_text_view = v.findViewById(R.id.toast_text);
@@ -102,6 +109,75 @@ public class ExpenseFragment extends Fragment {
         Itemtouchhelper();
         return root;
 
+    }
+
+    private void updatedata(final ExpenseModel expenseModel) {
+        final BottomSheetDialog dialog=new BottomSheetDialog(requireContext());
+        dialog.setContentView(R.layout.layout_dailog);
+        final EditText date,amount,note;
+        Spinner spinner;
+        Button ok;
+        ok = dialog.findViewById(R.id.ok);
+        date = dialog.findViewById(R.id.date);
+        spinner=dialog.findViewById(R.id.spinner);
+        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+        amount =dialog.findViewById(R.id.amount);
+        note = dialog.findViewById(R.id.note);
+        dialog.setCancelable(true);
+        date.setText(expenseModel.getTime());
+        amount.setText(expenseModel.getAmount());
+        note.setText(expenseModel.getNote());
+        dialog.show();
+        assert date != null;
+        date.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        assert ok != null;
+        category=expenseModel.getCategory();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category =adapterView.getAdapter().getItem(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(date.getText().toString()))
+                {
+                    date.setError("Invalid Date");
+                }
+                else if(TextUtils.isEmpty(amount.getText().toString()))
+                {
+                    amount.setError("No amount submitted");
+                }
+                else if (category.equals("--Category--"))
+                {
+                    toast_text_view.setText("invalid Category");
+                    toast.show();
+                }
+                else
+                {
+                    expenseModel.setAmount(amount.getText().toString());
+                    expenseModel.setNote(note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
+                    expenseModel.setTime(date.getText().toString());
+                    expenseModel.setCategory(category);
+                    expenseViewModel.updateExpense(expenseModel);
+                    dialog.dismiss();
+                    toast_text_view.setText("Item Updated");
+                    toast.show();
+                }
+
+            }
+        });
     }
 
     private void Itemtouchhelper() {

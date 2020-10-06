@@ -101,7 +101,14 @@ public class Repository {
     public LiveData<List<PiechartData>> getExpense(String date1) {
         return databaseDao.getExpense(date1);
     }
-
+    public void updateIncome(IncomeModel incomeModel)
+    {
+        new UpdateIncome(databaseDao).execute(incomeModel);
+    }
+    public void updateExpense(ExpenseModel expenseModel)
+    {
+        new UpdateExpense(databaseDao).execute(expenseModel);
+    }
 
     public static class InsertIncome extends AsyncTask<IncomeModel, Void, Void> {
         DatabaseDao databaseDao;
@@ -159,5 +166,35 @@ public class Repository {
             return null;
         }
     }
+    public static class UpdateIncome extends AsyncTask<IncomeModel,Void,Void>
+    {
+        DatabaseDao databaseDao;
 
+        public UpdateIncome(DatabaseDao dao) {
+            this.databaseDao = dao;
+        }
+
+
+
+        @Override
+        protected Void doInBackground(IncomeModel... incomeModels) {
+            databaseDao.updateIncome(incomeModels[0]);
+            return null;
+        }
+    }
+    public static class UpdateExpense extends AsyncTask<ExpenseModel,Void,Void>
+    {
+        DatabaseDao databaseDao;
+
+        public UpdateExpense(DatabaseDao dao) {
+            this.databaseDao = dao;
+        }
+
+
+        @Override
+        protected Void doInBackground(ExpenseModel... expenseModels) {
+            databaseDao.updateExpense(expenseModels[0]);
+            return null;
+        }
+    }
 }

@@ -56,5 +56,8 @@ public class IncomeViewModel extends AndroidViewModel {
         return repository.getSumIncome();
     }
 
-
+    public void updateIncome(IncomeModel model)
+    {
+        repository.updateIncome(model);
+    }
 }

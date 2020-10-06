@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 
 import java.util.List;
@@ -70,6 +71,10 @@ public interface DatabaseDao {
 
     @Query("select sum(Amount) as Amt,Category as Name from Expense where Time = :date1 group by category order by Sum(Amount)")
     LiveData<List<PiechartData>> getExpense(String date1);
+    @Update
+    void updateIncome(IncomeModel model);
+    @Update
+    void updateExpense(ExpenseModel model);
 
 
 }

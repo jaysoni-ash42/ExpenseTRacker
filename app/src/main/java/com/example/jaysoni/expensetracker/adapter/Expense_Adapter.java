@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
+import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseDatabase;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
@@ -25,7 +26,11 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
 
     List<ExpenseModel> expenseModelList = new ArrayList<>();
     List<ExpenseModel> data;
+    RecyclerInterface recyclerInterface;
 
+    public Expense_Adapter(RecyclerInterface recyclerInterface) {
+        this.recyclerInterface = recyclerInterface;
+    }
 
     @NonNull
     @Override
@@ -115,7 +120,13 @@ public class Expense_Adapter extends RecyclerView.Adapter<Expense_Adapter.Expens
             category = itemView.findViewById(R.id.category);
             amount = itemView.findViewById(R.id.amount);
             note = itemView.findViewById(R.id.Note);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    recyclerInterface.Longclick(getAdapterPosition());
+                    return true;
+                }
+            });
         }
-
     }
 }

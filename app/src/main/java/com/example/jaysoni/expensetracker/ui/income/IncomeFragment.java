@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.jaysoni.expensetracker.R;
+import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Income_Adapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -68,7 +69,12 @@ public class IncomeFragment extends Fragment {
         recyclerView = root.findViewById(R.id.Income_recyclerview);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         linearLayout = root.findViewById(R.id.linearlayout);
-        income_adapter = new Income_Adapter();
+        income_adapter = new Income_Adapter(new RecyclerInterface() {
+            @Override
+            public void Longclick(int position) {
+                updatedate(incomeModelList.get(position));
+            }
+        });
         toast = new Toast(getContext());
         View v = LayoutInflater.from(getContext()).inflate(R.layout.layout_toast, container, false);
         toast_text_view = v.findViewById(R.id.toast_text);
@@ -91,6 +97,74 @@ public class IncomeFragment extends Fragment {
         Itemtouchhelper();
         return root;
 
+    }
+
+    private void updatedate(final IncomeModel model) {
+        final BottomSheetDialog dialog=new BottomSheetDialog(requireContext());
+        dialog.setContentView(R.layout.layout_dailog);
+        final EditText date,amount,note;
+        Spinner spinner;
+        Button ok;
+        ok = dialog.findViewById(R.id.ok);
+        date = dialog.findViewById(R.id.date);
+        spinner=dialog.findViewById(R.id.spinner);
+        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+        amount =dialog.findViewById(R.id.amount);
+        note = dialog.findViewById(R.id.note);
+        dialog.setCancelable(true);
+        date.setText(model.getTime());
+        amount.setText(model.getAmount());
+        note.setText(model.getNote());
+        dialog.show();
+        assert date != null;
+        date.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        assert ok != null;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category =adapterView.getAdapter().getItem(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(date.getText().toString()))
+                {
+                    date.setError("Invalid Date");
+                }
+                else if(TextUtils.isEmpty(amount.getText().toString()))
+                {
+                    amount.setError("No amount submitted");
+                }
+                else if (category.equals("--Category--"))
+                {
+                    toast_text_view.setText("invalid Category");
+                    toast.show();
+                }
+                else
+                {
+                    model.setAmount(amount.getText().toString());
+                    model.setNote(note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
+                    model.setTime(date.getText().toString());
+                    model.setCategory(category);
+                    incomeViewModel.updateIncome(model);
+                    dialog.dismiss();
+                    toast_text_view.setText("Item Updated");
+                    toast.show();
+                }
+
+            }
+        });
     }
 
     private void Itemtouchhelper() {

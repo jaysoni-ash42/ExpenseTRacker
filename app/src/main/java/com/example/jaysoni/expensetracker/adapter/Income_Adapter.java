@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
+import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -21,6 +22,12 @@ import java.util.List;
 public class Income_Adapter extends RecyclerView.Adapter<Income_Adapter.Income_ViewHolder> implements Filterable {
 List<IncomeModel> incomeModelList=new ArrayList<>();
     List<IncomeModel> data;
+    RecyclerInterface recyclerInterface;
+
+    public Income_Adapter(RecyclerInterface recyclerInterface) {
+        this.recyclerInterface = recyclerInterface;
+    }
+
     @NonNull
     @Override
     public Income_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -110,6 +117,13 @@ List<IncomeModel> incomeModelList=new ArrayList<>();
             category=itemView.findViewById(R.id.category);
             amount=itemView.findViewById(R.id.amount);
             note=itemView.findViewById(R.id.Note);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    recyclerInterface.Longclick(getAdapterPosition());
+                    return true;
+                }
+            });
         }
     }
 }
