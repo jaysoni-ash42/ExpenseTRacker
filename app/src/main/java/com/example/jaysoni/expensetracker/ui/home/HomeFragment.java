@@ -38,6 +38,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.nio.BufferOverflowException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     LinearLayout linearlayoutincome, linearlayoutexpense;
     RecyclerView expense_Recyclerview, income_Recyclerview;
-    TextView expenseamount, incomeamount;
+    TextView expenseamount, incomeamount,Budget_Amount;
     Home_IncomeAdapter income_adapter;
     Home_ExpenseAdapter expense_adapter;
     List<IncomeModel> incomeModelList;
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment {
     LineDataSet incomedataset, expensedataset;
     List<Entry> lineEntries, lineEntries2;
     List<ILineDataSet> dataSets;
+    String Income="0",Expense="0";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         expenseModelList = new ArrayList<>();
         incomeModelList = new ArrayList<>();
+        Budget_Amount=root.findViewById(R.id.Budget_Amount);
         lineChart = root.findViewById(R.id.line_chart);
         linearlayoutexpense = root.findViewById(R.id.linearlayoutexpense);
         linearlayoutincome = root.findViewById(R.id.linearlayoutinome);
@@ -78,6 +81,7 @@ public class HomeFragment extends Fragment {
         income_adapter = new Home_IncomeAdapter();
         expense_adapter = new Home_ExpenseAdapter();
         insertData();
+        Budget_Amount.setText("0");
         return root;
     }
 
@@ -150,6 +154,7 @@ public class HomeFragment extends Fragment {
                     linearlayoutexpense.setVisibility(View.VISIBLE);
                     expense_adapter.clearList();
                     expense_adapter.notifyDataSetChanged();
+
                 } else {
                     expenseModelList = expenseModels;
                     linearlayoutexpense.setVisibility(View.INVISIBLE);
@@ -164,9 +169,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(String integer) {
                 if (integer == null) {
+                    Expense="0";
                     expenseamount.setText("Amount: " + "$" + 0.00);
                 } else {
+                    Expense=integer;
                     expenseamount.setText("Amount: " + "$" + String.valueOf(integer));
+                    Budget_Amount.setText(""+ (Float.parseFloat(Income)- Float.parseFloat(Expense)));
                 }
             }
         });
@@ -193,9 +201,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(String integer) {
                 if (integer == null) {
+                    Income="0";
                     incomeamount.setText("Amount: " + "$" + 0.00);
                 } else {
+                    Income=integer;
                     incomeamount.setText("Amount: " + "$" + String.valueOf(integer));
+                    Budget_Amount.setText(""+ (Float.parseFloat(Income)- Float.parseFloat(Expense)));
                 }
             }
         });

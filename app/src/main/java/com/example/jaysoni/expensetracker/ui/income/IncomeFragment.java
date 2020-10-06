@@ -108,7 +108,7 @@ public class IncomeFragment extends Fragment {
         ok = dialog.findViewById(R.id.ok);
         date = dialog.findViewById(R.id.date);
         spinner=dialog.findViewById(R.id.spinner);
-        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        String[] var = new String[]{"--Category--", "Others", "Business", "Salary"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(arrayAdapter);
@@ -429,7 +429,7 @@ public class IncomeFragment extends Fragment {
         ok = bottomSheetDialog.findViewById(R.id.ok);
         date = bottomSheetDialog.findViewById(R.id.date);
         spinnerbottom=bottomSheetDialog.findViewById(R.id.spinner);
-        String[] var = new String[]{"--Category--", "Others", "Business", "Salary",};
+        String[] var = new String[]{"--Category--", "Others", "Business", "Salary"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerbottom.setAdapter(arrayAdapter);
