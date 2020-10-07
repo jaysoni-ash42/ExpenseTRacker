@@ -1,9 +1,6 @@
 package com.example.jaysoni.expensetracker.ui.expense;
 
-import android.app.Dialog;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.media.MediaRouter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,15 +27,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
-import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Expense_Adapter;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -49,7 +43,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -112,20 +105,20 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void updatedata(final ExpenseModel expenseModel) {
-        final BottomSheetDialog dialog=new BottomSheetDialog(requireContext());
+        final BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
         dialog.setContentView(R.layout.layout_dailog);
-        final EditText date,amount,note;
+        final EditText date, amount, note;
         Spinner spinner;
         Button ok;
         ok = dialog.findViewById(R.id.ok);
         date = dialog.findViewById(R.id.date);
-        spinner=dialog.findViewById(R.id.spinner);
-        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        spinner = dialog.findViewById(R.id.spinner);
+        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing", "Medical", "Personal", "Restaurant", "Loan", "Merchandise"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(arrayAdapter);
         spinner.setSelection(0);
-        amount =dialog.findViewById(R.id.amount);
+        amount = dialog.findViewById(R.id.amount);
         note = dialog.findViewById(R.id.note);
         dialog.setCancelable(true);
         date.setText(expenseModel.getTime());
@@ -135,11 +128,11 @@ public class ExpenseFragment extends Fragment {
         assert date != null;
         date.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         assert ok != null;
-        category=expenseModel.getCategory();
+        category = expenseModel.getCategory();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category =adapterView.getAdapter().getItem(i).toString();
+                category = adapterView.getAdapter().getItem(i).toString();
 
             }
 
@@ -151,21 +144,14 @@ public class ExpenseFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(date.getText().toString()))
-                {
+                if (TextUtils.isEmpty(date.getText().toString())) {
                     date.setError("Invalid Date");
-                }
-                else if(TextUtils.isEmpty(amount.getText().toString()))
-                {
+                } else if (TextUtils.isEmpty(amount.getText().toString())) {
                     amount.setError("No amount submitted");
-                }
-                else if (category.equals("--Category--"))
-                {
+                } else if (category.equals("--Category--")) {
                     toast_text_view.setText("invalid Category");
                     toast.show();
-                }
-                else
-                {
+                } else {
                     expenseModel.setAmount(amount.getText().toString());
                     expenseModel.setNote(note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
                     expenseModel.setTime(date.getText().toString());
@@ -181,7 +167,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void Itemtouchhelper() {
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT ) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -198,7 +184,7 @@ public class ExpenseFragment extends Fragment {
                     toast_text_view.setText("Item Deleted");
                     final Snackbar snackBar = Snackbar.make(recyclerView, "Click Undo to Revert", Snackbar.LENGTH_SHORT);
 
-                   snackBar.addCallback(new Snackbar.Callback() {
+                    snackBar.addCallback(new Snackbar.Callback() {
 
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
@@ -212,13 +198,13 @@ public class ExpenseFragment extends Fragment {
                         @Override
                         public void onShown(Snackbar snackbar) {
 
-                            snackBar.setBackgroundTint(ContextCompat.getColor(getActivity(),R.color.colorPrimary))
-                                    .setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark))
-                                    .setActionTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark))
+                            snackBar.setBackgroundTint(ContextCompat.getColor(getActivity(), R.color.colorPrimary))
+                                    .setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
+                                    .setActionTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
                                     .setAction("Undo", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            expensemodels.add(position,expenseModel);
+                                            expensemodels.add(position, expenseModel);
                                             expense_adapter.notifyDataSetChanged();
                                         }
                                     });
@@ -445,8 +431,8 @@ public class ExpenseFragment extends Fragment {
         Button ok;
         ok = bottomSheetDialog.findViewById(R.id.ok);
         date = bottomSheetDialog.findViewById(R.id.date);
-        spinnerbottom=bottomSheetDialog.findViewById(R.id.spinner);
-        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing","Medical","Personal","Restaurant","Loan","Merchandise"};
+        spinnerbottom = bottomSheetDialog.findViewById(R.id.spinner);
+        String[] var = new String[]{"--Category--", "Others", "Groceries", "Clothing", "Medical", "Personal", "Restaurant", "Loan", "Merchandise"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerbottom.setAdapter(arrayAdapter);
@@ -461,7 +447,7 @@ public class ExpenseFragment extends Fragment {
         spinnerbottom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category =adapterView.getAdapter().getItem(i).toString();
+                category = adapterView.getAdapter().getItem(i).toString();
 
             }
 
@@ -473,22 +459,15 @@ public class ExpenseFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(date.getText().toString()))
-                {
+                if (TextUtils.isEmpty(date.getText().toString())) {
                     date.setError("Invalid Date");
-                }
-                else if(TextUtils.isEmpty(amount.getText().toString()))
-                {
+                } else if (TextUtils.isEmpty(amount.getText().toString())) {
                     amount.setError("No amount submitted");
-                }
-                else if (category.equals(""))
-                {
+                } else if (category.equals("--Category--")) {
                     toast_text_view.setText("invalid Category");
                     toast.show();
-                }
-                else
-                {
-                    ExpenseModel expenseModel=new ExpenseModel(date.getText().toString(),category,amount.getText().toString(),note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
+                } else {
+                    ExpenseModel expenseModel = new ExpenseModel(date.getText().toString(), category, amount.getText().toString(), note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
                     expenseViewModel.insertExpense(expenseModel);
                     bottomSheetDialog.dismiss();
                     toast_text_view.setText("Item Added");

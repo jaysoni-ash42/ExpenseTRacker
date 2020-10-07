@@ -9,36 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import androidx.fragment.app.Fragment;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.Roomdatabase.ExpenseModel;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
-import com.example.jaysoni.expensetracker.adapter.Expense_Adapter;
 import com.example.jaysoni.expensetracker.adapter.Home_ExpenseAdapter;
 import com.example.jaysoni.expensetracker.adapter.Home_IncomeAdapter;
-import com.example.jaysoni.expensetracker.adapter.Income_Adapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.nio.BufferOverflowException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +40,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     LinearLayout linearlayoutincome, linearlayoutexpense;
     RecyclerView expense_Recyclerview, income_Recyclerview;
-    TextView expenseamount, incomeamount,Budget_Amount;
+    TextView expenseamount, incomeamount, Budget_Amount;
     Home_IncomeAdapter income_adapter;
     Home_ExpenseAdapter expense_adapter;
     List<IncomeModel> incomeModelList;
@@ -61,7 +50,7 @@ public class HomeFragment extends Fragment {
     LineDataSet incomedataset, expensedataset;
     List<Entry> lineEntries, lineEntries2;
     List<ILineDataSet> dataSets;
-    String Income="0",Expense="0";
+    String Income = "0", Expense = "0";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +59,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         expenseModelList = new ArrayList<>();
         incomeModelList = new ArrayList<>();
-        Budget_Amount=root.findViewById(R.id.Budget_Amount);
+        Budget_Amount = root.findViewById(R.id.Budget_Amount);
         lineChart = root.findViewById(R.id.line_chart);
         linearlayoutexpense = root.findViewById(R.id.linearlayoutexpense);
         linearlayoutincome = root.findViewById(R.id.linearlayoutinome);
@@ -169,12 +158,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(String integer) {
                 if (integer == null) {
-                    Expense="0";
+                    Expense = "0";
                     expenseamount.setText("Amount: " + "$" + 0.00);
                 } else {
-                    Expense=integer;
+                    Expense = integer;
                     expenseamount.setText("Amount: " + "$" + String.valueOf(integer));
-                    Budget_Amount.setText(""+ (Float.parseFloat(Income)- Float.parseFloat(Expense)));
+                    Budget_Amount.setText("" + (Float.parseFloat(Income) - Float.parseFloat(Expense)));
                 }
             }
         });
@@ -201,12 +190,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(String integer) {
                 if (integer == null) {
-                    Income="0";
+                    Income = "0";
                     incomeamount.setText("Amount: " + "$" + 0.00);
                 } else {
-                    Income=integer;
+                    Income = integer;
                     incomeamount.setText("Amount: " + "$" + String.valueOf(integer));
-                    Budget_Amount.setText(""+ (Float.parseFloat(Income)- Float.parseFloat(Expense)));
+                    Budget_Amount.setText("" + (Float.parseFloat(Income) - Float.parseFloat(Expense)));
                 }
             }
         });

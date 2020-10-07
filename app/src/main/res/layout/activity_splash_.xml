@@ -7,15 +7,5 @@
     tools:context=".Splash_Activity"
     android:padding="20dp"
     android:background="@drawable/splash">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="40sp"
-        android:text="@string/app_name"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

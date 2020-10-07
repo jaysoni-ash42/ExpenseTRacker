@@ -1,4 +1,5 @@
 package com.example.jaysoni.expensetracker.ui.income;
+
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -27,12 +29,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jaysoni.expensetracker.R;
 import com.example.jaysoni.expensetracker.RecyclerInterface;
 import com.example.jaysoni.expensetracker.Roomdatabase.IncomeModel;
 import com.example.jaysoni.expensetracker.adapter.Income_Adapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,7 +71,7 @@ public class IncomeFragment extends Fragment {
         textView = root.findViewById(R.id.date);
         amount = root.findViewById(R.id.income_amount);
         recyclerView = root.findViewById(R.id.Income_recyclerview);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         linearLayout = root.findViewById(R.id.linearlayout);
         income_adapter = new Income_Adapter(new RecyclerInterface() {
             @Override
@@ -100,20 +104,20 @@ public class IncomeFragment extends Fragment {
     }
 
     private void updatedate(final IncomeModel model) {
-        final BottomSheetDialog dialog=new BottomSheetDialog(requireContext());
+        final BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
         dialog.setContentView(R.layout.layout_dailog);
-        final EditText date,amount,note;
+        final EditText date, amount, note;
         Spinner spinner;
         Button ok;
         ok = dialog.findViewById(R.id.ok);
         date = dialog.findViewById(R.id.date);
-        spinner=dialog.findViewById(R.id.spinner);
+        spinner = dialog.findViewById(R.id.spinner);
         String[] var = new String[]{"--Category--", "Others", "Business", "Salary"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(arrayAdapter);
         spinner.setSelection(0);
-        amount =dialog.findViewById(R.id.amount);
+        amount = dialog.findViewById(R.id.amount);
         note = dialog.findViewById(R.id.note);
         dialog.setCancelable(true);
         date.setText(model.getTime());
@@ -126,7 +130,7 @@ public class IncomeFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category =adapterView.getAdapter().getItem(i).toString();
+                category = adapterView.getAdapter().getItem(i).toString();
 
             }
 
@@ -138,21 +142,14 @@ public class IncomeFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(date.getText().toString()))
-                {
+                if (TextUtils.isEmpty(date.getText().toString())) {
                     date.setError("Invalid Date");
-                }
-                else if(TextUtils.isEmpty(amount.getText().toString()))
-                {
+                } else if (TextUtils.isEmpty(amount.getText().toString())) {
                     amount.setError("No amount submitted");
-                }
-                else if (category.equals("--Category--"))
-                {
+                } else if (category.equals("--Category--")) {
                     toast_text_view.setText("invalid Category");
                     toast.show();
-                }
-                else
-                {
+                } else {
                     model.setAmount(amount.getText().toString());
                     model.setNote(note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
                     model.setTime(date.getText().toString());
@@ -428,7 +425,7 @@ public class IncomeFragment extends Fragment {
         Button ok;
         ok = bottomSheetDialog.findViewById(R.id.ok);
         date = bottomSheetDialog.findViewById(R.id.date);
-        spinnerbottom=bottomSheetDialog.findViewById(R.id.spinner);
+        spinnerbottom = bottomSheetDialog.findViewById(R.id.spinner);
         String[] var = new String[]{"--Category--", "Others", "Business", "Salary"};
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.support_simple_spinner_dropdown_item, var);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -444,7 +441,7 @@ public class IncomeFragment extends Fragment {
         spinnerbottom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category =adapterView.getAdapter().getItem(i).toString();
+                category = adapterView.getAdapter().getItem(i).toString();
 
             }
 
@@ -456,22 +453,15 @@ public class IncomeFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(date.getText().toString()))
-                {
+                if (TextUtils.isEmpty(date.getText().toString())) {
                     date.setError("Invalid Date");
-                }
-                else if(TextUtils.isEmpty(amount.getText().toString()))
-                {
+                } else if (TextUtils.isEmpty(amount.getText().toString())) {
                     amount.setError("No amount submitted");
-                }
-                else if (category.equals(""))
-                {
+                } else if (category.equals("--Category--")) {
                     toast_text_view.setText("invalid Category");
                     toast.show();
-                }
-                else
-                {
-                    IncomeModel incomeModel=new IncomeModel(date.getText().toString(),category,amount.getText().toString(),note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
+                } else {
+                    IncomeModel incomeModel = new IncomeModel(date.getText().toString(), category, amount.getText().toString(), note.getText().toString().isEmpty() ? "Null" : note.getText().toString());
                     incomeViewModel.insertIncome(incomeModel);
                     bottomSheetDialog.dismiss();
                     toast_text_view.setText("Item Added");
